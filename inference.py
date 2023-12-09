@@ -790,6 +790,7 @@ if __name__ == '__main__':
     m.add_argument("--vocals_only", type=bool, help="Vocals + instrumental only", required=False, default=False)
     m.add_argument("--use_VOCFT", type=bool, help="use VOCFT in vocal ensemble", required=False, default=False)
     m.add_argument("--output_format", type=str, help="Output audio folder", default="FLOAT")
+    m.add_argument("-j", "--jobs", type=int, help="Number of jobs. This can increase memory usage but will " "be much faster when multiple cores are available.", required=False, default=0,)
     
     options = m.parse_args().__dict__
     print("Options: ")
