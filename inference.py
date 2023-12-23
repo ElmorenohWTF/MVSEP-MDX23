@@ -528,15 +528,15 @@ class EnsembleDemucsMDXMusicSeparationModel:
         vocals4, instrum4 = demix_full_vitlarge(audio, self.device, self.model_vl)
         vocals4 = match_array_shapes(vocals4, mixed_sound_array.T)
         # print('Time: {:.0f} sec'.format(time() - start_time))
-        # sf.write("/content/drive/MyDrive/output/vocals4.wav", vocals4.T, 44800)
-        # sf.write("instrum4.wav", instrum4.T, 44800)
+        # sf.write("/content/drive/MyDrive/output/vocals4.wav", vocals4.T, 48000)
+        # sf.write("instrum4.wav", instrum4.T, 48000)
 
         
         print('Processing vocals with MDXv3 InstVocHQ model...')
         sources3 = demix_full_mdx23c(mixed_sound_array.T, self.device, self.model_mdxv3)
         vocals3 = match_array_shapes(sources3, mixed_sound_array.T)
         # print('Time: {:.0f} sec'.format(time() - start_time))
-        # sf.write("vocals3.wav", sources3.T, 44800)
+        # sf.write("vocals3.wav", sources3.T, 48000)
         
         if options['use_VOCFT'] is True:
             print('Processing vocals with UVR-MDX-VOC-FT...')
@@ -558,7 +558,7 @@ class EnsembleDemucsMDXMusicSeparationModel:
                 bigshifts=options['BigShifts']//5
             )
             vocals_mdxb1 = sources1 
-            # sf.write("vocals_mdxb1.wav", vocals_mdxb1.T, 44800)
+            # sf.write("vocals_mdxb1.wav", vocals_mdxb1.T, 48000)
             
         print('Processing vocals: DONE!')
         
@@ -711,7 +711,7 @@ def predict_with_model(options):
 
     for i, input_audio in enumerate(options['input_audio']):
         print('Go for: {}'.format(input_audio))
-        audio, sr = librosa.load(input_audio, mono=False, sr=44800)
+        audio, sr = librosa.load(input_audio, mono=False, sr=48000)
         if len(audio.shape) == 1:
             audio = np.stack([audio, audio], axis=0)
         print("Input audio: {} Sample rate: {}".format(audio.shape, sr))
@@ -737,7 +737,7 @@ def predict_with_model(options):
 
 
 # Linkwitz-Riley filter
-def lr_filter(audio, cutoff, filter_type, order=6, sr=44800):
+def lr_filter(audio, cutoff, filter_type, order=6, sr=48000):
     audio = audio.T
     nyquist = 0.5 * sr
     normal_cutoff = cutoff / nyquist
