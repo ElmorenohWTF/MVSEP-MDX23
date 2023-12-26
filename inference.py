@@ -406,10 +406,7 @@ class EnsembleDemucsMDXMusicSeparationModel:
             providers = ["CPUExecutionProvider"]
         else:
             chunk_size = 1000000
-            if torch.version.cuda is not None:
-                providers = ["CUDAExecutionProvider"]
-            elif torch.version.hip is not None:
-                providers = ["ROCMExecutionProvider"]
+            providers = ["CUDAExecutionProvider"]
         if 'chunk_size' in options:
             chunk_size = int(options['chunk_size'])
 
